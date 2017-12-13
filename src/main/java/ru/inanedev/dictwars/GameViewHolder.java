@@ -12,20 +12,24 @@ import android.widget.TextView;
 
 
 public class GameViewHolder extends RecyclerView.ViewHolder {
+    public ImageView competitorAva;
+    public TextView competitorName;
+    public TextView gameLettersFirst;
+    public TextView gameLettersLast;
 
-    public TextView titleView;
     public TextView authorView;
-    public ImageView starView;
-    public TextView numStarsView;
+
     public TextView bodyView;
 
     public GameViewHolder(View itemView) {
         super(itemView);
+        competitorAva = itemView.findViewById(R.id.game_competitor_ava);
+        competitorName = itemView.findViewById(R.id.game_competitor_name);
+        gameLettersFirst = itemView.findViewById(R.id.game_letter_first);
+        gameLettersLast = itemView.findViewById(R.id.game_letter_last);
 
-        titleView = itemView.findViewById(R.id.post_title);
-        authorView = itemView.findViewById(R.id.post_author);
-        starView = itemView.findViewById(R.id.star);
-        numStarsView = itemView.findViewById(R.id.post_num_stars);
+
+
         bodyView = itemView.findViewById(R.id.post_body);
     }
 
@@ -35,6 +39,6 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
 
         bodyView.setText(UserGame.LastWord);
 
-        starView.setOnClickListener(starClickListener);
+
     }
 }

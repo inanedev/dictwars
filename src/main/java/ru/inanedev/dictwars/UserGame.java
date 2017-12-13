@@ -17,6 +17,8 @@ public class UserGame {
     public String uid;
     public String GameId;
     public String WhoTurn;
+    public String LetterFirst;
+    public String LetterLast;
     public String LastWord;
 
 
@@ -24,10 +26,12 @@ public class UserGame {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public UserGame(String uid, String GameId, String WhoTurn, String LastWord) {
+    public UserGame(String uid, String GameId, String WhoTurn, String LetterFirst , String LetterLast ,String LastWord) {
         this.uid = uid;
         this.GameId = GameId;
         this.WhoTurn = WhoTurn;
+        this.LetterFirst = LetterFirst;
+        this.LetterLast = LetterLast;
         this.LastWord = LastWord;
     }
 
@@ -38,6 +42,8 @@ public class UserGame {
         result.put("uid", uid);
         result.put("GameId", GameId);
         result.put("WhoTurn", WhoTurn);
+        result.put("LetterFirst", LetterFirst);
+        result.put("LetterLast", LetterLast);
         result.put("LastWord", LastWord);
         return result;
     }
