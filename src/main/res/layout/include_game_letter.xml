@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
+        android:text="А"
         tools:text="А" />
     <TextView
         android:id="@+id/game_letter_last"
@@ -22,6 +23,7 @@
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:textColor="@color/colorAccent"
+        android:text="А"
         tools:text="А" />
 
 </LinearLayout>

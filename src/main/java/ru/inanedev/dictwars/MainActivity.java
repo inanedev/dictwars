@@ -13,12 +13,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends BaseActivity {
@@ -27,22 +33,63 @@ public class MainActivity extends BaseActivity {
 
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "before_setContentView");
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate")
+        Log.d(TAG, "onCreate");
+        final TextView cUsername;
+        final TextView cUserEmail;
+
+        cUsername = findViewById(R.id.userName);
+        cUserEmail = findViewById(R.id.usermail);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mUser=mAuth.getCurrentUser();
+
+
+        Log.d(TAG, mDatabase.toString());
+
+        Log.d(TAG, mUser.getUid());
+
+
+        mDatabase.child("users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               Log.d(TAG, "onDataChange");
+               if (dataSnapshot.exists()==true) {
+                   // System.out.println(TAG + " -->" + dataSnapshot.getValue());
+                   cUsername.setText(dataSnapshot.child("username").getValue().toString());
+                   cUserEmail.setText(dataSnapshot.child("email").getValue().toString());
+
+               } else Log.d(TAG, "datasnap is null");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.d(TAG, "" );
+
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new CurrentGamesFragment(),
-                    new RecentGamesFragment(),
+                    new CurrentGamesFragment()
+                   // new RecentGamesFragment(),
                    //new MyTopPostsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_current_games),
-                    getString(R.string.heading_recent_games)
+                    getString(R.string.heading_current_games)
+                   // getString(R.string.heading_recent_games)
                     //getString(R.string.heading_my_top_posts)
             };
             @Override

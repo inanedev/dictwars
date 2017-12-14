@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/game_competitor_ava"
-        android:src="@drawable/ava_man"
+        android:src="@drawable/ava_woman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
+        android:text="Competitro Name"
         tools:text="Competitorname" />
 
 </LinearLayout>

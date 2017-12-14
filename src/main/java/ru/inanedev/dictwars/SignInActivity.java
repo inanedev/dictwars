@@ -123,8 +123,11 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         writeNewUser(user.getUid(), username, user.getEmail());
 
         // Go to MainActivity
+        Log.d(TAG, "Starting Main Activity");
         startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        Log.d(TAG, "Starting Main Done");
         finish();
+        Log.d(TAG, "finish signIn done");
     }
 
     private String usernameFromEmail(String email) {
@@ -157,7 +160,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     // [START basic_write]
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
-
+        Log.d(TAG, "try to write user");
         mDatabase.child("users").child(userId).setValue(user);
     }
     // [END basic_write]

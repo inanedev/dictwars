@@ -1,30 +1,42 @@
 package ru.inanedev.dictwars;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by safronov on 08.12.2017.
  */
 
-class CurrentGamesFragment extends GameListFragment  {
+public class CurrentGamesFragment extends GameListFragment  {
+    private FirebaseAuth mAuth;
+
     public CurrentGamesFragment() {}
+
     private FirebaseUser mUser;
+    private static final String TAG = "ZXZX-GameListFragment: ";
     @Override
+
     public Query getQuery(DatabaseReference databaseReference) {
         // [START recent_posts_query]
         // Last 100 posts, these are automatically the 100 most recent
         // due to sorting by push() keys
+        mAuth = FirebaseAuth.getInstance();
+        mUser= mAuth.getCurrentUser();
 
 
-
-        Query recentGamesQuery = databaseReference.child("user_games").child(mUser.getUid())
+        Query recentGamesQuery = databaseReference.child("UserGame").child(mUser.getUid())
                 .limitToFirst(20);
         // [END recent_posts_query]
 
+        Log.d(TAG, "QueryResult: " +recentGamesQuery.toString() );
         return recentGamesQuery;
     }
 }

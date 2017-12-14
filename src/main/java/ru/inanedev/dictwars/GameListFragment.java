@@ -61,10 +61,11 @@ public abstract class GameListFragment extends Fragment {
         mRecycler.setLayoutManager(mManager);
 
         // Set up FirebaseRecyclerAdapter with the Query
-        Query postsQuery = getQuery(mDatabase);
+        Query gameQuery = getQuery(mDatabase);
+
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<UserGame>()
-                .setQuery(postsQuery, UserGame.class)
+                .setQuery(gameQuery, UserGame.class)
                 .build();
 
         mAdapter = new FirebaseRecyclerAdapter<UserGame, GameViewHolder>(options) {
@@ -85,12 +86,14 @@ public abstract class GameListFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
-                        Intent intent = new Intent(getActivity(), GameDetailActivity.class);
-                        intent.putExtra(GameDetailActivity.EXTRA_POST_KEY, postKey);
-                        startActivity(intent);
+                        //TODO: INTENT A GAME
+                        //Intent intent = new Intent(getActivity(), GameDetailActivity.class);
+                        //intent.putExtra(GameDetailActivity.EXTRA_POST_KEY, postKey);
+                        //startActivity(intent);
                     }
                 });
 
+                viewHolder.bindToUserGame(model);
 
             }
         };

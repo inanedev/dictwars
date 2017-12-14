@@ -13,6 +13,7 @@ android:orientation="horizontal">
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:gravity="center_vertical"
+    android:text="АБРАКАДАБРА"
     tools:text="АБРАКАДАБРА" />
 
 </LinearLayout>
