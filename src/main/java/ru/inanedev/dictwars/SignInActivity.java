@@ -118,9 +118,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
-        Log.d(TAG, "Username: "+username+" userUID:"+user.getUid().toString() );
+        Log.d(TAG, "Username: "+username+" userUID:"+user.getUid());
         // Write new user
-        writeNewUser(user.getUid(), username, user.getEmail());
+        writeNewUser(user.getUid(), username, user.getEmail(), "ava_man");
 
         // Go to MainActivity
         Log.d(TAG, "Starting Main Activity");
@@ -158,8 +158,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     // [START basic_write]
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
+    private void writeNewUser(String userId, String name, String email, String ava) {
+        User user = new User(name, email, ava);
         Log.d(TAG, "try to write user");
         mDatabase.child("users").child(userId).setValue(user);
     }
