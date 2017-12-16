@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/x1"
-        android:src="@drawable/ava_woman"
-        android:layout_width="wrap_content"
+
+
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".NewGameActivity">
+
+
+
+    <include
+
+        layout="@layout/user_layout"
+        android:id="@+id/newgame_userlayout_include"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:maxWidth="90dp"
-        android:maxHeight="90dp"
-        android:scaleType="fitCenter"
-        android:layout_marginLeft="3dp"/>
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:id="@+id/x2"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
+    </include>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="Competitro Name"
-        tools:text="Competitorname" />
+        android:layout_below="@id/newgame_userlayout_include"
+        android:orientation="vertical">
 
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/user_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:clipToPadding="false"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_users"
+
+
+        />
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
