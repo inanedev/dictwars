@@ -54,6 +54,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         user_userava.setImageResource(id_ava);
         user_userstatus.setImageResource(id_status);
 
+        Log.d(TAG, "Test GitHUB");
+
 
 
 
