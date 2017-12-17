@@ -20,21 +20,21 @@ public class UserGame {
     public String LetterFirst;
     public String LetterLast;
     public String LastWord;
-    public String CompetitorAva;
+    public String Competitor;
 
 
     public UserGame() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public UserGame(String uid, String GameId, String WhoTurn, String LetterFirst , String LetterLast ,String LastWord, String CompetitorAva) {
+    public UserGame(String uid, String GameId, String WhoTurn, String LetterFirst , String LetterLast ,String LastWord, String Competitor) {
         this.uid = uid;
         this.GameId = GameId;
         this.WhoTurn = WhoTurn;
         this.LetterFirst = LetterFirst;
         this.LetterLast = LetterLast;
         this.LastWord = LastWord;
-        this.CompetitorAva = CompetitorAva;
+        this.Competitor = Competitor;
     }
 
     // [START post_to_map]
@@ -47,7 +47,7 @@ public class UserGame {
         result.put("LetterFirst", LetterFirst);
         result.put("LetterLast", LetterLast);
         result.put("LastWord", LastWord);
-        result.put("CompetitorAva", CompetitorAva);
+        result.put("Competitor", Competitor);
         return result;
     }
     // [END post_to_map]

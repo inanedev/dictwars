@@ -28,7 +28,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
 
     public void bindToUser(Users Users) {
-        Log.d(TAG, "bindToUser ->" + Users.uid + Users.email + " -- " +Users.username);
+        Log.d(TAG, "bindToUser ->" + Users.userStatus+" -- " + Users.email + " -- " +Users.username);
         int id_ava;
         int id_status;
         id_ava = user_userava
@@ -54,7 +54,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         user_userava.setImageResource(id_ava);
         user_userstatus.setImageResource(id_status);
 
-        Log.d(TAG, "Test GitHUB");
+
 
 
 

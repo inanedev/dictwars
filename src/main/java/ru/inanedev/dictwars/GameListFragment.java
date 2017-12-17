@@ -38,6 +38,7 @@ public abstract class GameListFragment extends Fragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.fragment_game_list, container, false);
 
         // [START create_database_reference]

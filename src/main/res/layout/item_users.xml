@@ -12,13 +12,13 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/item_user_ava"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/ava_woman"
             android:maxHeight="45dp"
             android:maxWidth="45dp"
