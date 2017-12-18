@@ -15,13 +15,14 @@ import com.google.firebase.database.ValueEventListener;
  * Created by safronov on 08.12.2017.
  */
 
-public class RecentGamesFragment extends GameListFragment  {
+public class YourTurnGamesFragment extends GameListFragment  {
     private FirebaseAuth mAuth;
 
-    public RecentGamesFragment() {}
+    public YourTurnGamesFragment() {}
 
     private FirebaseUser mUser;
-    private static final String TAG = "ZXZX-GameListFragment: ";
+
+    private static final String TAG = "ZXZX-YourTurnFragment: ";
     @Override
 
     public Query getQuery(DatabaseReference databaseReference) {
@@ -32,12 +33,10 @@ public class RecentGamesFragment extends GameListFragment  {
         mUser= mAuth.getCurrentUser();
 
 
-        Query recentGamesQuery = databaseReference.child("UserGame").child(mUser.getUid()).orderByChild("isFinished").equalTo(true)
-                .limitToFirst(10);
+        Query yourTurnGamesQuery = databaseReference.child("UserGame").child(mUser.getUid()).orderByChild("WhoTurn").equalTo(mUser.getUid());
         // [END recent_posts_query]
 
-        Log.d(TAG, "QueryResult: " +recentGamesQuery.toString() );
-        return recentGamesQuery;
+        Log.d(TAG, "QueryResult: " +yourTurnGamesQuery.toString() );
+        return yourTurnGamesQuery;
     }
 }
-

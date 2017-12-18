@@ -54,6 +54,7 @@ public class NewGameActivity extends BaseActivity {
 
         Log.d(TAG, "QUERY->"+userQuery.toString());
 
+
         mAdapter = new FirebaseRecyclerAdapter<Users, UserViewHolder>(options) {
 
             @Override
@@ -93,10 +94,12 @@ public class NewGameActivity extends BaseActivity {
         if (rnd==0) {WhoTurn=mUser;} else {WhoTurn=userKey;}
 
         //mDatabase.child("UserGame").child(mUser).child(GameKey).child("CompetitorAva").setValue("ava_woman");
+
         mDatabase.child("UserGame").child(mUser).child(GameKey).child("LastWord").setValue("ПриродА");
         mDatabase.child("UserGame").child(mUser).child(GameKey).child("LetterFirst").setValue("П");
         mDatabase.child("UserGame").child(mUser).child(GameKey).child("LetterLast").setValue("А");
         mDatabase.child("UserGame").child(mUser).child(GameKey).child("WhoTurn").setValue(WhoTurn);
+        mDatabase.child("UserGame").child(mUser).child(GameKey).child("isFinished").setValue(false);
         mDatabase.child("UserGame").child(mUser).child(GameKey).child("Competitor").setValue(userKey);
 
         //Log.d(TAG, "onCreate. Start player2 AVA");
@@ -106,6 +109,7 @@ public class NewGameActivity extends BaseActivity {
         mDatabase.child("UserGame").child(userKey).child(GameKey).child("LetterFirst").setValue("П");
         mDatabase.child("UserGame").child(userKey).child(GameKey).child("LetterLast").setValue("А");
         mDatabase.child("UserGame").child(userKey).child(GameKey).child("WhoTurn").setValue(WhoTurn);
+        mDatabase.child("UserGame").child(userKey).child(GameKey).child("isFinished").setValue(false);
         mDatabase.child("UserGame").child(userKey).child(GameKey).child("Competitor").setValue(mUser);
 
         //Log.d(TAG, "onCreate. Start Games WHO TURN");
@@ -126,6 +130,7 @@ public class NewGameActivity extends BaseActivity {
         mRecycler.setAdapter(mAdapter);
         //Log.d(TAG, "onCreate. After setAdapter");
 
+
     }
 
     @Override
@@ -133,7 +138,9 @@ public class NewGameActivity extends BaseActivity {
         super.onStart();
         //Log.d(TAG, "onStart");
         if (mAdapter != null) {
+            showProgressDialog();
             mAdapter.startListening();
+            hideProgressDialog();
            // Log.d(TAG, "ADAPTER ->"+mAdapter.getItemCount());
         }
     }

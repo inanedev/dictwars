@@ -78,19 +78,21 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-        Log.d(TAG, "" );
+        //Log.d(TAG, "" );
+
+        showProgressDialog();
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new CurrentGamesFragment()
-                   // new RecentGamesFragment(),
-                   //new MyTopPostsFragment(),
+                    new YourTurnGamesFragment(),
+                    new CurrentGamesFragment(),
+                   new RecentGamesFragment()
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_current_games)
-                   // getString(R.string.heading_recent_games)
-                    //getString(R.string.heading_my_top_posts)
+                    getString(R.string.heading_yourturn_games),
+                    getString(R.string.heading_current_games),
+                    getString(R.string.heading_recent_games)
             };
             @Override
             public Fragment getItem(int position) {
@@ -110,7 +112,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
+        hideProgressDialog();
         // Button launches NewPostActivity
         findViewById(R.id.fab_new_game).setOnClickListener(new View.OnClickListener() {
             @Override

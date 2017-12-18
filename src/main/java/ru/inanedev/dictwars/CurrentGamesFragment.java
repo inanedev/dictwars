@@ -32,11 +32,11 @@ public class CurrentGamesFragment extends GameListFragment  {
         mUser= mAuth.getCurrentUser();
 
 
-        Query recentGamesQuery = databaseReference.child("UserGame").child(mUser.getUid())
-                .limitToFirst(20);
+        Query currentGamesQuery = databaseReference.child("UserGame").child(mUser.getUid()).orderByChild("isFinished").equalTo(false);
         // [END recent_posts_query]
 
-        Log.d(TAG, "QueryResult: " +recentGamesQuery.toString() );
-        return recentGamesQuery;
+        Log.d(TAG, "QueryResult: " +currentGamesQuery.toString() );
+        return currentGamesQuery;
     }
 }
+

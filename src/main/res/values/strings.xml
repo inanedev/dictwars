@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">dictwars</string>
+    <string name="heading_yourturn_games">Ваш Ход</string>
     <string name="heading_current_games">Текущие игры</string>
-    <string name="heading_recent_games">Недавние игры</string>
+    <string name="heading_recent_games">Последние игры</string>
     <string name="menu_logout">Выход</string>
     <string name="menu_delete">Удалить</string>
     <string name="hint_email">e-mail</string>
