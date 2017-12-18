@@ -21,7 +21,7 @@ public class RecentGamesFragment extends GameListFragment  {
     public RecentGamesFragment() {}
 
     private FirebaseUser mUser;
-    private static final String TAG = "ZXZX-GameListFragment: ";
+    private static final String TAG = "ZXZX-RecGamesFragment: ";
     @Override
 
     public Query getQuery(DatabaseReference databaseReference) {

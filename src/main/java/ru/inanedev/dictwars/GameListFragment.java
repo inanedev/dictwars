@@ -22,7 +22,7 @@ import com.google.firebase.database.Transaction;
 
 public abstract class GameListFragment extends Fragment {
 
-    private static final String TAG = "GameListFragment";
+    private static final String TAG = "ZXZX-GameListFragment";
 
     // [START define_database_reference]
     private DatabaseReference mDatabase;
@@ -79,18 +79,19 @@ public abstract class GameListFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(GameViewHolder viewHolder, int position, final UserGame model) {
-                final DatabaseReference postRef = getRef(position);
+                final DatabaseReference gameRef = getRef(position);
 
                 // Set click listener for the whole post view
-                final String postKey = postRef.getKey();
+                final String gameKey = gameRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Launch PostDetailActivity
+                        // Launch GameDetailActivity
                         //TODO: INTENT A GAME
-                        //Intent intent = new Intent(getActivity(), GameDetailActivity.class);
-                        //intent.putExtra(GameDetailActivity.EXTRA_POST_KEY, postKey);
-                        //startActivity(intent);
+                        Intent intent = new Intent(getActivity(), GameDetailActivity.class);
+                        Log.d(TAG, "onClick: " + gameKey);
+                        intent.putExtra(GameDetailActivity.EXTRA_GAME_KEY, gameKey);
+                        startActivity(intent);
                     }
                 });
 

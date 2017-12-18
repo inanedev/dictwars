@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.inanedev.dictwars.CreateUserActivity">
+
+    <RadioGroup
+        android:id="@+id/user_ava_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="7dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/user_ava_man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:maxHeight="120dp"
+            android:maxWidth="120dp"
+            android:drawableRight="@drawable/ava_man"
+
+            />
+
+
+        <RadioButton
+            android:id="@+id/user_ava_woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="120dp"
+            android:maxWidth="120dp"
+            android:drawableRight="@drawable/ava_woman"
+
+            />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/user_username"
+        android:layout_below="@+id/user_ava_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</RelativeLayout>

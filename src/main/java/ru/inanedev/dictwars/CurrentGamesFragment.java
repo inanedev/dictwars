@@ -21,21 +21,19 @@ public class CurrentGamesFragment extends GameListFragment  {
     public CurrentGamesFragment() {}
 
     private FirebaseUser mUser;
-    private static final String TAG = "ZXZX-GameListFragment: ";
+    private static final String TAG = "ZXZX-CurGamesFragment: ";
     @Override
 
     public Query getQuery(DatabaseReference databaseReference) {
-        // [START recent_posts_query]
-        // Last 100 posts, these are automatically the 100 most recent
-        // due to sorting by push() keys
+        // [START currentGamesQuery]
+        // All games in uId Child that are not finished yet.
+
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
 
 
         Query currentGamesQuery = databaseReference.child("UserGame").child(mUser.getUid()).orderByChild("isFinished").equalTo(false);
         // [END recent_posts_query]
-
-        Log.d(TAG, "QueryResult: " +currentGamesQuery.toString() );
         return currentGamesQuery;
     }
 }

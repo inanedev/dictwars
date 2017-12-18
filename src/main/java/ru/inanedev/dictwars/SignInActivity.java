@@ -58,7 +58,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         // Check auth on Activity start
         if (mAuth.getCurrentUser() != null) {
-            onAuthSuccess(mAuth.getCurrentUser());
+            writeExistingUser(getUid());
         }
     }
 
@@ -162,6 +162,14 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         User user = new User(name, email, ava, "user_online");
         Log.d(TAG, "try to write user");
         mDatabase.child("users").child(userId).setValue(user);
+    }
+
+    private void writeExistingUser(String userId) {
+        //User user = new User(name, email, ava, "user_online");
+        Log.d(TAG, "try to write user");
+        mDatabase.child("users").child(userId).child("userStatus").setValue("user_online");
+        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        finish();
     }
     // [END basic_write]
 
