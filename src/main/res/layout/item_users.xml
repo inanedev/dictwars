@@ -19,7 +19,7 @@
             android:id="@+id/item_user_ava"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ava_woman"
+            android:src="@drawable/boy_11"
             android:maxHeight="45dp"
             android:maxWidth="45dp"
             android:scaleType="centerInside"

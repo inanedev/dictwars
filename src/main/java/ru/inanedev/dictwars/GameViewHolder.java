@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class GameViewHolder extends RecyclerView.ViewHolder {
-    private static final String TAG = "GameViewHolder";
+    private static final String TAG = "ZXZX-GameViewHolder";
     public ImageView usergame_competitorAva;
     public TextView usergame_competitorName;
     public TextView usergame_LettersFirst;
@@ -45,28 +45,32 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
     //ava_man
 
     public void bindToUserGame(UserGame UserGame) {
-
+        Log.d(TAG, "bindToUsergame");
 
         id = usergame_competitorAva
                 .getContext()
                 .getResources()
                 .getIdentifier("ava_woman", "drawable", usergame_competitorAva.getContext().getPackageName());
 
+        Log.d(TAG, "id before" + id);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("users").child(UserGame.Competitor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              //  Log.d(TAG, "onDataChange");
+                Log.d(TAG, "onDataChange");
                 if (dataSnapshot.exists()==true) {
                     // System.out.println(TAG + " -->" + dataSnapshot.getValue());
                     usergame_competitorName.setText(dataSnapshot.child("username").getValue().toString());
                    // cUserEmail.setText(dataSnapshot.child("email").getValue().toString());
                     String resPath = dataSnapshot.child("userAva").getValue().toString();
+                    Log.d(TAG, "respath -> " + resPath);
                     if (resPath != null)  {
                         id = usergame_competitorAva.getContext()
                                 .getResources()
                                 .getIdentifier(resPath, "drawable", usergame_competitorAva.getContext().getPackageName());
+                        Log.d(TAG, "id in procedure" + id);
+                        usergame_competitorAva.setImageResource(id);
                     }
 
                 } else Log.d(TAG, "datasnap is null");
@@ -78,6 +82,8 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
 
             }
         });
+
+        Log.d(TAG, "id after" + id);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -110,7 +116,7 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
           id = usergame_competitorAva.getContext().getResources().getIdentifier(UserGame.CompetitorAva, "drawable", usergame_competitorAva.getContext().getPackageName());
         }
         */
-        usergame_competitorAva.setImageResource(id);
+
 
 
 
