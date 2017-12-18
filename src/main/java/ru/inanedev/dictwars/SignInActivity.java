@@ -117,17 +117,17 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
-        Log.d(TAG, "Username: "+username+" userUID:"+user.getUid());
-        // Write new user
-        writeNewUser(user.getUid(), username, user.getEmail(), "ava_man");
 
-        // Go to MainActivity
-        Log.d(TAG, "Starting Main Activity");
-        startActivity(new Intent(SignInActivity.this, MainActivity.class));
-        Log.d(TAG, "Starting Main Done");
-        finish();
-        Log.d(TAG, "finish signIn done");
+        String uEmail = user.getEmail();
+
+        Intent intent = new Intent(SignInActivity.this, CreateUserActivity.class);
+
+        intent.putExtra(CreateUserActivity.EXTRA_USER_MAIL, uEmail);
+        startActivity(intent);
+
+        //startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        //finish();
+
     }
 
     private String usernameFromEmail(String email) {
@@ -159,14 +159,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     // [START basic_write]
     private void writeNewUser(String userId, String name, String email, String ava) {
-        User user = new User(name, email, ava, "user_online");
-        Log.d(TAG, "try to write user");
-        mDatabase.child("users").child(userId).setValue(user);
+        //User user = new User(name, email, ava, "user_online");
+        Log.d(TAG, "start new user activity");
+
+        //mDatabase.child("users").child(userId).setValue(user);
     }
 
     private void writeExistingUser(String userId) {
         //User user = new User(name, email, ava, "user_online");
-        Log.d(TAG, "try to write user");
+        Log.d(TAG, "try to write existing user");
         mDatabase.child("users").child(userId).child("userStatus").setValue("user_online");
         startActivity(new Intent(SignInActivity.this, MainActivity.class));
         finish();

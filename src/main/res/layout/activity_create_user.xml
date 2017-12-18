@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.inanedev.dictwars.CreateUserActivity">
+    android:orientation="vertical"
+    tools:context=".CreateUserActivity">
 
-    <RadioGroup
-        android:id="@+id/user_ava_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="7dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/user_ava_man"
+        <Button
+            android:id="@+id/buttonPrev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:maxHeight="120dp"
-            android:maxWidth="120dp"
-            android:drawableRight="@drawable/ava_man"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="&lt;&lt;"/>
 
-            />
-
-
-        <RadioButton
-            android:id="@+id/user_ava_woman"
+        <Button
+            android:id="@+id/buttonForward"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="120dp"
-            android:maxWidth="120dp"
-            android:drawableRight="@drawable/ava_woman"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text=">>"/>
+    </LinearLayout>
 
-            />
+    <ImageSwitcher
+        android:id="@+id/imageSwitcher"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
 
-    </RadioGroup>
+        >
+
+    </ImageSwitcher>
 
     <EditText
-        android:id="@+id/user_username"
-        android:layout_below="@+id/user_ava_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/userCreate_username"
+        android:hint="Enter Username Here"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userCreate_create"
+        android:text="Create User"
+        android:onClick="onClick"
         />
 
-</RelativeLayout>
+</LinearLayout>

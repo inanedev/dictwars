@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,9 +47,11 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, "onCreate");
         final TextView cUsername;
         final TextView cUserEmail;
+        final ImageView cUserAva;
 
         cUsername = findViewById(R.id.userName);
         cUserEmail = findViewById(R.id.usermail);
+        cUserAva = findViewById(R.id.user_logo);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -65,9 +68,16 @@ public class MainActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                Log.d(TAG, "onDataChange");
                if (dataSnapshot.exists()==true) {
+                   int id_ava;
                    // System.out.println(TAG + " -->" + dataSnapshot.getValue());
                    cUsername.setText(dataSnapshot.child("username").getValue().toString());
                    cUserEmail.setText(dataSnapshot.child("email").getValue().toString());
+                   String resPath = dataSnapshot.child("userAva").getValue().toString();
+                   id_ava = cUserAva.getContext()
+                           .getResources()
+                           .getIdentifier(resPath, "drawable", cUserAva.getContext().getPackageName());
+                   cUserAva.setImageResource(id_ava);
+
 
                } else Log.d(TAG, "datasnap is null");
 
@@ -139,8 +149,9 @@ public class MainActivity extends BaseActivity {
         }
         if (i == R.id.action_delete) {
             //noinspection ConstantConditions
+
             FirebaseAuth.getInstance().getCurrentUser().delete();
-            startActivity(new Intent(this, SignInActivity.class));
+            //startActivity(new Intent(this, SignInActivity.class));
             finish();
             return true;
         }
