@@ -93,7 +93,7 @@ public class CreateUserActivity extends BaseActivity implements ViewSwitcher.Vie
         mImageSwitcher.setInAnimation(inAnimation);
         mImageSwitcher.setOutAnimation(outAnimation);
         mImageSwitcher.setImageResource(mImageIds[0]);
-        //mImageSwitcher.set
+        mImageSwitcher.setBackgroundResource(0);
         mEmail = getIntent().getStringExtra(EXTRA_USER_MAIL);
     }
 

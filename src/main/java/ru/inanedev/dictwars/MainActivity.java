@@ -149,7 +149,8 @@ public class MainActivity extends BaseActivity {
         }
         if (i == R.id.action_delete) {
             //noinspection ConstantConditions
-
+            mDatabase.child("users").child(getUid()).removeValue();
+            mDatabase.child("UserGame").child(getUid()).removeValue();
             FirebaseAuth.getInstance().getCurrentUser().delete();
             //startActivity(new Intent(this, SignInActivity.class));
             finish();

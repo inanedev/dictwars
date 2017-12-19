@@ -7,6 +7,8 @@ import android.view.View;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 /**
  * Created by safronov on 13.12.2017.
  */
@@ -17,11 +19,24 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
     private String mGameKey;
     private DatabaseReference mGameReference;
 
+    char[] alphabet = "абвгдеёжзийклмнопрстуфхцчшщъsьэюя".toCharArray();
+    int[] aWeight = new int[] {1,3,1,3,2,1,3,5,5,1,4,
+                               2,2,2,1,1,2,1,1,1,2,10,
+                               5,5,5,8,10,10,4,3,8,8,3};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_detail);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        int rnd = new Random().nextInt(alphabet.length);
+        int i;
+        for (i=0; i<alphabet.length; i++) {
+            Log.d(TAG, "Буквы словаря " + i + " --> " +alphabet[i] + " aWeight:"+aWeight[i]);
+        }
+
 
         // Get post key from intent
         mGameKey = getIntent().getStringExtra(EXTRA_GAME_KEY);

@@ -28,6 +28,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
 
     public void bindToUser(Users Users) {
+
+
         Log.d(TAG, "bindToUser ->" + Users.userStatus+" -- " + Users.email + " -- " +Users.username);
         int id_ava;
         int id_status;

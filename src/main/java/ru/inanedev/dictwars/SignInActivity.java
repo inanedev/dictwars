@@ -80,7 +80,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         hideProgressDialog();
 
                         if (task.isSuccessful()) {
-                            onAuthSuccess(task.getResult().getUser());
+                           writeExistingUser(getUid());
                         } else {
                             Toast.makeText(SignInActivity.this, "Sign In Failed",
                                     Toast.LENGTH_SHORT).show();
@@ -124,6 +124,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         intent.putExtra(CreateUserActivity.EXTRA_USER_MAIL, uEmail);
         startActivity(intent);
+        finish();
 
         //startActivity(new Intent(SignInActivity.this, MainActivity.class));
         //finish();
