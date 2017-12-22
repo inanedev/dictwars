@@ -53,6 +53,8 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
 
         mRecycler = findViewById(R.id.usedword_list);
         mManager = new LinearLayoutManager(this);
+        mManager.setReverseLayout(true);
+        mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
         usedWord = findViewById(R.id.user_word);
         btnGO = findViewById(R.id.button_user_put_word);
@@ -154,6 +156,8 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
 
                 Log.d(TAG, mWords.toMap().toString());
                 mGameReference.child("UsedWords").child(usedWord_key).setValue(mWords);
+
+                mRecycler.scrollToPosition(mAdapter.getItemCount());
 
             }
         }
