@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
 
-        mDatabase.child("users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("users").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()==true) {
@@ -87,30 +87,7 @@ public class BaseActivity extends AppCompatActivity {
         return currentUserName;
     }
 
-    public String getUserAva () {
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
-
-        mDatabase.child("users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()==true) {
-
-                    currentUserAva = dataSnapshot.child("userAva").getValue().toString();
-                }
-                else Log.d(TAG, "datasnap is null");
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return currentUserAva;
-    }
 
 
 

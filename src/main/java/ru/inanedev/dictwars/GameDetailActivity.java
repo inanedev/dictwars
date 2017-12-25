@@ -13,9 +13,14 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
@@ -42,6 +47,10 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
     private FirebaseRecyclerAdapter<UsedWords, UsedWordsViewHolder> mAdapter;
+    private String mUserAva;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
 
     @Override
@@ -59,12 +68,8 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
         usedWord = findViewById(R.id.user_word);
         btnGO = findViewById(R.id.button_user_put_word);
         btnGO.setOnClickListener(this);
-
-
-//        int i;
-//        for (i = 0; i < alphabet.length; i++) {
-//            Log.d(TAG, "Буквы словаря " + i + " --> " + alphabet[i] + " aWeight:" + aWeight[i]);
- //       }
+        mUserAva=getUserAva();
+        Log.d(TAG, "onCreate mUserAva->"+mUserAva);
 
 
         // Get post key from intent
@@ -87,10 +92,15 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
                 .build();
 
         mAdapter = new FirebaseRecyclerAdapter<UsedWords, UsedWordsViewHolder>(options) {
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                mRecycler.smoothScrollToPosition(mAdapter.getItemCount());
+            }
 
             @Override
             protected void onBindViewHolder(UsedWordsViewHolder viewHolder, int position, UsedWords model) {
-                Log.d(TAG, "onBindViewHolder");
+
                 viewHolder.bindToUsedWords(model);
             }
 
@@ -101,12 +111,10 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
 
                 switch (viewType) {
                     case MY_WORD:
-                        Log.d(TAG, "onCreateViewHolder -> MY_WORD");
                          inflater = LayoutInflater.from(viewGroup.getContext());
                         return new UsedWordsViewHolder(inflater.inflate(R.layout.item_usedwords_mine, viewGroup, false));
                     case OPP_WORD:
-                        Log.d(TAG, "onCreateViewHolder -> OPP_WORD");
-                         inflater = LayoutInflater.from(viewGroup.getContext());
+                        inflater = LayoutInflater.from(viewGroup.getContext());
                         return new UsedWordsViewHolder(inflater.inflate(R.layout.item_usedwords_competitor, viewGroup, false));
                 }
 
@@ -119,15 +127,9 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
             @Override
             public int getItemViewType(int position) {
                 UsedWords model = getItem(position);
-
-                Log.d(TAG, "GetItemViewType");
-
-
                 if (getUid().toString().equals(model.userId.toString())) {
-                    Log.d(TAG, MY_WORD+ " --> " + model.userId + "|" + getUid());
                     return MY_WORD;
                 } else {
-                    Log.d(TAG, OPP_WORD+ " --> " + model.userId + "|" + getUid());
                     return OPP_WORD;}
 
             }
@@ -140,25 +142,25 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "onClick");
         UsedWords mWords = new UsedWords();
         String usedWord_key;
     switch (view.getId()) {
         case R.id.button_user_put_word:
-            Log.d(TAG, "Push put word " + usedWord.getText());
+
             if (usedWord.getText().length()>0) {
                 mWords.userId=getUid();
                 mWords.UsedWord=usedWord.getText().toString();
                 mWords.userAva=getUserAva();
                 mWords.WordScore=getWordScore(usedWord.getText().toString());
 
+                Log.d(TAG, "mWords: "+ mWords.userId +" | "
+                        +mWords.userAva +" | "+ mWords.UsedWord +" | "+ mWords.WordScore);
+
                 usedWord_key= mGameReference.child("UsedWords").push().getKey();
 
-                Log.d(TAG, mWords.toMap().toString());
                 mGameReference.child("UsedWords").child(usedWord_key).setValue(mWords);
-
-                mRecycler.scrollToPosition(mAdapter.getItemCount());
-
+                usedWord.setText("");
+                usedWord.setEnabled(false);
             }
         }
     }
@@ -170,14 +172,41 @@ public class GameDetailActivity extends BaseActivity implements View.OnClickList
         return wordScore;
     }
 
+    public String getUserAva () {
+        Log.d(TAG, "getUserAva() ->");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        mUser=mAuth.getCurrentUser();
+
+        mDatabase.child("users").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()==true) {
+
+                    currentUserAva = dataSnapshot.child("userAva").getValue().toString();
+                    Log.d(TAG, dataSnapshot.child("userAva").getValue().toString());
+                    Log.d(TAG, currentUserAva);
+                }
+                else Log.d(TAG, "datasnap is null");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                 Log.d(TAG, "getUserAva -> onCancelled");
+            }
+        });
+        return currentUserAva;
+    }
+
     protected void onStart() {
         super.onStart();
-        //Log.d(TAG, "onStart");
+        mUserAva=getUserAva();
         if (mAdapter != null) {
             showProgressDialog();
             mAdapter.startListening();
             hideProgressDialog();
-            // Log.d(TAG, "ADAPTER ->"+mAdapter.getItemCount());
+
         }
     }
 
